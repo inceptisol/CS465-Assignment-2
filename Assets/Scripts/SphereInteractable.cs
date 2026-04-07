@@ -12,9 +12,10 @@ public class SphereInteractable : MonoBehaviour
         Debug.Log("MOVING");
         //adjusts position
         var myPosition = transform.position;
-        myPosition.y += 0.10f;
-        myPosition.x += 0.10f;
-        transform.position = myPosition;
+        myPosition.y += 1.0f;
+        myPosition.x += 1.0f;
+        Instantiate(gameObject, myPosition, transform.rotation);
+        Destroy(gameObject);
     }
 
 }
