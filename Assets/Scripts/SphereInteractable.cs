@@ -14,6 +14,8 @@ public class SphereInteractable : MonoBehaviour
         Debug.Log("MOVING");
         //adjusts position
         var myPosition = transform.position;
+        GameObject.Find("Manager").GetComponent<MyManager>().logData(transform.position, 5);
+        //MyManager.instance.logData(transform.position, 5);
         myPosition.x = Random.Range(-0.2f, 0.2f);
         //myPosition.y = Random.Range(-0.005f, 0.005f);
         myPosition.z = Random.Range(-0.2f, 0.2f);
