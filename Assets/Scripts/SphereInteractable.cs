@@ -14,8 +14,10 @@ public class SphereInteractable : MonoBehaviour
         Debug.Log("MOVING");
         //adjusts position
         var myPosition = transform.position;
-        myPosition.x += 1.0f;
-        Instantiate(gameObject, myPosition, transform.rotation);
+        myPosition.x = Random.Range(-0.2f, 0.2f);
+        //myPosition.y = Random.Range(-0.005f, 0.005f);
+        myPosition.z = Random.Range(-0.2f, 0.2f);
+        Instantiate(gameObject, myPosition, transform.rotation, gameObject.transform.parent);
         Destroy(gameObject);
     }
 
