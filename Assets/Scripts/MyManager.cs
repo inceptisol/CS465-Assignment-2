@@ -6,10 +6,16 @@ public class MyManager : MonoBehaviour
     public static int currentTrial = 0;
     public static double time = 0;
     public static Vector3 prevPosition = new Vector3(0, 0, 0);
-    static int[] trial1 = new [] {1, 2};
-    static int[] trial2 = new [] {1, 3};
-    public static int[][] trials = new[] {trial1, trial2};
-
+                                //dis w  dir   
+    static float[] trial1 = new [] {0.1f, 1.0f, -1.0f};
+    static float[] trial2 = new [] {0.1f, 1.0f, 1.0f};
+    public static float[][] trials = new[] {trial1, trial2};
+    public float[] getTrial() {
+        return trials[currentTrial];
+    }
+    public void incrementTrial() {
+        currentTrial += 1;
+    }
     public void logData(Vector3 position, float W){
         double newTime = Time.timeAsDouble;
         double MT = newTime - time;

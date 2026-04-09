@@ -9,17 +9,21 @@ public class SphereInteractable : MonoBehaviour
     {
         Debug.Log("HELLOOO");
     }
+    void Start() {
+        var trial = GameObject.Find("Manager").GetComponent<MyManager>().getTrial();
+        var myPosition = transform.position;
+        myPosition.x = trial[0] * trial[2];
+        transform.position = myPosition;
+        Debug.Log(transform.position);
+        //transform.localScale = new Vector3(trial[1], trial[1], trial[1]);
+    }
     public void EndGrab()
     {
         Debug.Log("MOVING");
         //adjusts position
-        var myPosition = transform.position;
         GameObject.Find("Manager").GetComponent<MyManager>().logData(transform.position, 5);
-        //MyManager.instance.logData(transform.position, 5);
-        myPosition.x = Random.Range(-0.2f, 0.2f);
-        //myPosition.y = Random.Range(-0.005f, 0.005f);
-        myPosition.z = Random.Range(-0.2f, 0.2f);
-        Instantiate(gameObject, myPosition, transform.rotation, gameObject.transform.parent);
+        GameObject.Find("Manager").GetComponent<MyManager>().incrementTrial();
+        Instantiate(gameObject, transform.position, transform.rotation, gameObject.transform.parent);
         Destroy(gameObject);
     }
 
