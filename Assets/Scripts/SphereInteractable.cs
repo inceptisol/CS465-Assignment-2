@@ -16,6 +16,8 @@ public class SphereInteractable : MonoBehaviour
     }
     void Start() {
         var trial = GameObject.Find("Manager").GetComponent<MyManager>().getTrial();
+        Debug.Log(trial);
+        Debug.Log("HEY BROTHER");
         var myPosition = transform.position;
         myPosition.x = trial[0] * trial[2];
         transform.position = myPosition;

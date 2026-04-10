@@ -10,8 +10,8 @@ public class MyManager : MonoBehaviour
     public static double a = 0.2;
     public static double b = 7.0532;
                                 //dis w  dir   
-    static float[] trial1 = new [] {0.1f, 1.0f, -1.0f};
-    static float[] trial2 = new [] {0.1f, 1.0f, 1.0f};
+    static float[] trial1 = new [] {0.2f, 1.0f, -1.0f};
+    static float[] trial2 = new [] {0.2f, 1.0f, 1.0f};
     public static float[][] trials = new[] {trial1, trial2};
     private List<string> csvRows= new List<string>();
 
