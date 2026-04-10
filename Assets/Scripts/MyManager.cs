@@ -22,11 +22,13 @@ public class MyManager : MonoBehaviour
         double newTime = Time.timeAsDouble;
         double trueMT = newTime - time;
         time = newTime;
-        float A = Vector3.Distance(prevPosition, position);
-        double ID = Mathf.Log((A/W) + 1);
+        float A = Mathf.Abs(Vector3.Distance(prevPosition, position));
+        double ID = Mathf.Log((A/W) + 1, 2);
+        //Debug.Log(string.Format("A = {0}, W = {1}, ID = {2}", A, W, Mathf.Log((2 * A)/W, 2)));
         //b = (MT - a)/ID;
-        double predictedMT = a + b * ID;
-        Debug.Log(string.Format("Predicted MT = {0}, Actual = {1}!", predictedMT, trueMT));
+        double shannonPredictedMT = a + b * ID;
+        double origPredictedMT = a + b * Mathf.Log((2 * A)/W, 2);
+        Debug.Log(string.Format("Original Predicted MT = {0}, Shannon Predicted MT = {1}, Actual = {2}!", origPredictedMT, shannonPredictedMT, trueMT));
     }
     
     private static MyManager _instance;
