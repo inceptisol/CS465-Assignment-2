@@ -73,7 +73,7 @@ public void LogTrial(int trialNumber,
                                 }
 
 public void saveCSV(){
-    string header = "Trial,A,W,MT,ID,TP";
+    string header = "Trial,A,W,MT,ID,TP,OriginalPredictedMT,ShannonPredictedMT";
     string path = Application.dataPath + "/CsvPrint/Decomposers_Outputfile.csv";
 
     using (StreamWriter writer = new StreamWriter(path)){
