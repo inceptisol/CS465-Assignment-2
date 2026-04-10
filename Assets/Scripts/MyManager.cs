@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class MyManager : MonoBehaviour
 {   
@@ -12,11 +13,17 @@ public class MyManager : MonoBehaviour
     static float[] trial1 = new [] {0.2f, 1.0f, -1.0f};
     static float[] trial2 = new [] {0.2f, 1.0f, 1.0f};
     public static float[][] trials = new[] {trial1, trial2};
+    private List<string> csvRows= new List<string>();
+
     public float[] getTrial() {
         return trials[currentTrial];
     }
     public void incrementTrial() {
         currentTrial += 1;
+        
+        if (currentTrial >= trials.Length){
+            saveCSV();
+        }
     }
     public void logData(Vector3 position, float W){
         double newTime = Time.timeAsDouble;
@@ -24,6 +31,11 @@ public class MyManager : MonoBehaviour
         time = newTime;
         float A = Mathf.Abs(Vector3.Distance(prevPosition, position));
         double ID = Mathf.Log((A/W) + 1, 2);
+        double TP = ID / trueMT;
+
+        prevPosition = position;
+        LogTrial(currentTrial, A, W, trueMT, ID, TP);
+
         //Debug.Log(string.Format("A = {0}, W = {1}, ID = {2}", A, W, Mathf.Log((2 * A)/W, 2)));
         //b = (MT - a)/ID;
         double shannonPredictedMT = a + b * ID;
@@ -41,4 +53,33 @@ public class MyManager : MonoBehaviour
             return _instance;
         }
     }
+
+    
+
+    
+public void LogTrial(int trialNumber, 
+                                float A,
+                                float W, 
+                                double trueMT, 
+                                double ID,
+                                double TP)
+                                {
+    string row = $"{trialNumber},{A},{W},{trueMT},{ID},{TP}";
+    
+    csvRows.Add(row);
+                                }
+
+public void saveCSV(){
+    string header = "Trial,A,W,MT,ID,TP";
+    string path = Application.dataPath + "/CsvPrint/Decomposers_Outputfile.csv";
+
+    using (StreamWriter writer = new StreamWriter(path)){
+        writer.WriteLine(header);
+        foreach (string row in csvRows){
+            writer.WriteLine(row);
+        }
+    }
+
+    Debug.Log("CSV saved to:" + path);
+}
 } 
