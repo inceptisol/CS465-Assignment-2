@@ -7,7 +7,12 @@ public class SphereInteractable : MonoBehaviour
     
     public void Grab()
     {
-        Debug.Log("HELLOOO");
+        Debug.Log("MOVING");
+        //adjusts position
+        GameObject.Find("Manager").GetComponent<MyManager>().logData(transform.position, 5);
+        GameObject.Find("Manager").GetComponent<MyManager>().incrementTrial();
+        Instantiate(gameObject, transform.position, transform.rotation, gameObject.transform.parent);
+        Destroy(gameObject);
     }
     void Start() {
         var trial = GameObject.Find("Manager").GetComponent<MyManager>().getTrial();
@@ -19,12 +24,7 @@ public class SphereInteractable : MonoBehaviour
     }
     public void EndGrab()
     {
-        Debug.Log("MOVING");
-        //adjusts position
-        GameObject.Find("Manager").GetComponent<MyManager>().logData(transform.position, 5);
-        GameObject.Find("Manager").GetComponent<MyManager>().incrementTrial();
-        Instantiate(gameObject, transform.position, transform.rotation, gameObject.transform.parent);
-        Destroy(gameObject);
+        Debug.Log("WOAH");
     }
 
 }
