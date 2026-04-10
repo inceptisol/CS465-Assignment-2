@@ -17,6 +17,10 @@ public class MyManager : MonoBehaviour
     }
     public void incrementTrial() {
         currentTrial += 1;
+        
+        if (currentTrial >= trials.Length){
+            FindObjectOfType<CsvFile>().saveCSV();
+        }
     }
     public void logData(Vector3 position, float W){
         double newTime = Time.timeAsDouble;
@@ -24,6 +28,11 @@ public class MyManager : MonoBehaviour
         time = newTime;
         float A = Mathf.Abs(Vector3.Distance(prevPosition, position));
         double ID = Mathf.Log((A/W) + 1, 2);
+        double TP = ID / MT;
+
+        prevPosition = position;
+        FindObjectOfType<CsvFile>().LogTrial(currentTrial, A, W, MT, ID, TP);
+
         //Debug.Log(string.Format("A = {0}, W = {1}, ID = {2}", A, W, Mathf.Log((2 * A)/W, 2)));
         //b = (MT - a)/ID;
         double shannonPredictedMT = a + b * ID;
