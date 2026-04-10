@@ -3,22 +3,29 @@ using UnityEngine;
 
 public class SphereInteractable : MonoBehaviour
 {
+    Material material;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    void Start() {
+        material = Resources.Load(Application.dataPath + "/VRTemplateAssets/Materials/Anchor Materials/Blue Anchor Arrow.mat", typeof(Material)) as Material;
+    }
     public void Grab()
     {
-        Debug.Log("HELLOOO");
+        var manager = GameObject.Find("Manager").GetComponent<MyManager>();
+        var trial = manager.getTrial();
+        manager.logData(transform.position, 5);
+        manager.incrementTrial();
+        var newPosition = transform.position;
+        newPosition.x = trial[0] * trial[2];
+        var newSphere = Instantiate(gameObject, newPosition, transform.rotation, GameObject.Find("Main Camera").transform);
+        newSphere.transform.localScale = new Vector3(trial[1], trial[1], trial[1]);
+        newSphere.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        var material = Resources.Load("Blue Anchor Arrow", typeof(Material)) as Material;
+        newSphere.transform.GetChild(1).gameObject.GetComponent<Renderer>().material = material;
+        Destroy(gameObject);
     }
     public void EndGrab()
     {
-        Debug.Log("MOVING");
-        //adjusts position
-        var myPosition = transform.position;
-        myPosition.x = Random.Range(-0.2f, 0.2f);
-        //myPosition.y = Random.Range(-0.005f, 0.005f);
-        myPosition.z = Random.Range(-0.2f, 0.2f);
-        Instantiate(gameObject, myPosition, transform.rotation, gameObject.transform.parent);
-        Destroy(gameObject);
+        Debug.Log("Grab ended");
     }
 
 }
