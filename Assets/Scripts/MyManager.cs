@@ -39,7 +39,7 @@ public class MyManager : MonoBehaviour
         //Debug.Log(string.Format("A = {0}, W = {1}, ID = {2}", A, W, Mathf.Log((2 * A)/W, 2)));
         //b = (MT - a)/ID;
         double shannonPredictedMT = a + b * ID;
-        double origPredictedMT = a + b * Mathf.Log((2 * A)/W, 2);
+        double origPredictedMT = System.Math.Abs(a + b * Mathf.Log((2 * A)/W, 2));
         Debug.Log(string.Format("Original Predicted MT = {0}, Shannon Predicted MT = {1}, Actual = {2}!", origPredictedMT, shannonPredictedMT, trueMT));
     }
     
