@@ -34,13 +34,14 @@ public class MyManager : MonoBehaviour
         double TP = ID / trueMT;
 
         prevPosition = position;
-        LogTrial(currentTrial, A, W, trueMT, ID, TP);
+        double shannonPredictedMT = a + b * ID;
+        double origPredictedMT = System.Math.Abs(a + b * Mathf.Log((2 * A)/W, 2));
+        LogTrial(currentTrial, A, W, trueMT, ID, TP, origPredictedMT, shannonPredictedMT);
 
         //Debug.Log(string.Format("A = {0}, W = {1}, ID = {2}", A, W, Mathf.Log((2 * A)/W, 2)));
         //b = (MT - a)/ID;
-        double shannonPredictedMT = a + b * ID;
-        double origPredictedMT = System.Math.Abs(a + b * Mathf.Log((2 * A)/W, 2));
-        Debug.Log(string.Format("Original Predicted MT = {0}, Shannon Predicted MT = {1}, Actual = {2}!", origPredictedMT, shannonPredictedMT, trueMT));
+        
+        Debug.Log(string.Format("Original Predicted MT = {0}, Shannon Predicted MT = {1}, Actual = {2}!", A, shannonPredictedMT, trueMT));
     }
     
     private static MyManager _instance;
@@ -62,9 +63,11 @@ public void LogTrial(int trialNumber,
                                 float W, 
                                 double trueMT, 
                                 double ID,
-                                double TP)
+                                double TP,
+                                double origPredictedMT,
+                                double shannonPredictedMT)
                                 {
-    string row = $"{trialNumber},{A},{W},{trueMT},{ID},{TP}";
+    string row = $"{trialNumber},{A},{W},{trueMT},{ID},{TP},{origPredictedMT},{shannonPredictedMT}";
     
     csvRows.Add(row);
                                 }
