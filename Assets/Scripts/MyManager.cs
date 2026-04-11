@@ -18,12 +18,15 @@ public class MyManager : MonoBehaviour
     public float[] getTrial() {
         return trials[currentTrial % trials.Length];
     }
-    public void incrementTrial() {
-        currentTrial += 1;
+    public void incrementTrial() {        
+        if (currentTrial >= 6)
+            return;
         
-        if (currentTrial >= 6){
+
+        currentTrial += 1;
+
+        if (currentTrial >= 6)
             saveCSV();
-        }
     }
     public void logData(Vector3 position, float W){
         double newTime = Time.timeAsDouble;
@@ -85,4 +88,12 @@ public void saveCSV(){
 
     Debug.Log("CSV saved to:" + path);
 }
+
+public string GetInteractionMethod()
+    {
+        if (currentTrial < 3) 
+            return "Controller Ray";
+        else
+            return "Hand Pinch";
+    }
 } 
