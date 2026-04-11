@@ -12,7 +12,7 @@ public class SphereInteractable : MonoBehaviour
     {
         var manager = GameObject.Find("Manager").GetComponent<MyManager>();
         var trial = manager.getTrial();
-        manager.logData(transform.position, 5);
+        manager.logData(transform.position, trial[1]);
         manager.incrementTrial();
         var newPosition = transform.position;
         newPosition.x = trial[0] * trial[2];
