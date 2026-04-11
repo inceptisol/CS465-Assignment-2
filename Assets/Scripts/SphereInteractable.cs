@@ -1,3 +1,4 @@
+// SphereInteractable.cs
 using UnityEngine;
 using System.Collections;
 
@@ -17,28 +18,31 @@ public class SphereInteractable : MonoBehaviour
     }
 
     public void Grab() {
-        if (trialResolved) return;           
-        if (MyManager.experimentOver) return;
-        ResolveTrial(true);                 
+        if (trialResolved) return;
+        ResolveTrial(true);
     }
 
     private void ResolveTrial(bool wasHit) {
         trialResolved = true;
 
-        var manager = MyManager.instance;
-        manager.logData(transform.position, 5, wasHit);
+        MyManager.instance.logData(transform.position, 5f);
 
         if (wasHit)
-            manager.RegisterHit();
+            MyManager.instance.RegisterHit();
         else
-            manager.RegisterMiss();
+            MyManager.instance.RegisterMiss();
 
         ExperimentHUD.instance.ShowResult(wasHit);
         ExperimentHUD.instance.UpdateHUD();
 
-        if (!MyManager.experimentOver)
-            SpawnNext();
+        if (MyManager.currentTrial >= 6) {
+            saveCSV();
+            ExperimentHUD.instance.ShowFinalMessage($"Done! You hit {MyManager.totalHits} out of 6!");
+            Destroy(gameObject);
+            return;
+        }
 
+        SpawnNext();
         Destroy(gameObject);
     }
 
