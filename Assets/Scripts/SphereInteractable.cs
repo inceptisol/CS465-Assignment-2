@@ -10,10 +10,17 @@ public class SphereInteractable : MonoBehaviour
     }
     public void Grab()
     {
+        if (MyManager.currentTrial >= 6) 
+            return;
+
         var manager = GameObject.Find("Manager").GetComponent<MyManager>();
         var trial = manager.getTrial();
         manager.logData(transform.position, trial[1]);
         manager.incrementTrial();
+
+        ExperimentHUD.instance.ShowResult(true);
+        ExperimentHUD.instance.UpdateHUD();
+
         var newPosition = transform.position;
         newPosition.x = trial[0] * trial[2];
         var newSphere = Instantiate(gameObject, newPosition, transform.rotation, GameObject.Find("Main Camera").transform);
