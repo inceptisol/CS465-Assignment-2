@@ -21,7 +21,7 @@ public class MyManager : MonoBehaviour
     public void incrementTrial() {
         currentTrial += 1;
         
-        if (currentTrial >= trials.Length){
+        if (currentTrial >= 16){
             saveCSV();
         }
     }
