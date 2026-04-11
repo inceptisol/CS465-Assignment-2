@@ -21,7 +21,7 @@ public class MyManager : MonoBehaviour
     public void incrementTrial() {
         currentTrial += 1;
         
-        if (currentTrial >= 16){
+        if (currentTrial >= 6){
             saveCSV();
         }
     }
